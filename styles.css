@@ -1,0 +1,277 @@
+:root {
+  --bg: #f4efe6;
+  --surface: #fffdf8;
+  --surface-alt: #f8f1e3;
+  --text: #2f2a24;
+  --muted: #6f665b;
+  --accent: #7a4b2a;
+  --accent-dark: #5d381f;
+  --border: #e4d8c4;
+  --shadow: 0 10px 30px rgba(80, 52, 24, 0.08);
+  --radius: 18px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Georgia", "Times New Roman", serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top right, #efe3cf 0, transparent 28%),
+    radial-gradient(circle at left 20%, #ede4d6 0, transparent 22%),
+    var(--bg);
+  line-height: 1.5;
+}
+
+.app {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 20px 48px;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 18px;
+  padding: 6px;
+  background: rgba(255, 253, 248, 0.8);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  box-shadow: var(--shadow);
+}
+
+.tab-button {
+  flex: 1;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 14px;
+  font-size: 0.98rem;
+  cursor: pointer;
+  background: transparent;
+  color: var(--muted);
+  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.tab-button.active {
+  background: var(--accent);
+  color: #fff;
+}
+.tab-button:focus-visible {
+  outline: 3px solid rgba(122, 75, 42, 0.2);
+  outline-offset: 1px;
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  color: var(--accent);
+  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+}
+
+h1 {
+  margin: 8px 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 0 auto;
+  max-width: 620px;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px;
+  margin-bottom: 18px;
+}
+
+.card-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 16px;
+  align-items: baseline;
+  margin-bottom: 14px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.muted { color: var(--muted); margin: 0; }
+.hint { color: var(--muted); font-size: 0.95rem; margin: 12px 0 0; }
+.label { color: var(--muted); font-size: 0.9rem; display: block; margin-bottom: 4px; }
+
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.theme-item {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+}
+
+.theme-item strong { font-size: 1rem; }
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.field { display: flex; flex-direction: column; gap: 6px; font-family: system-ui, -apple-system, Segoe UI, sans-serif; }
+.field span { font-size: 0.95rem; color: var(--muted); }
+.checkbox-field { flex-direction: row; align-items: flex-start; gap: 10px; }
+.checkbox-field input { width: auto; margin-top: 3px; }
+.checkbox-field span { font-size: 0.95rem; color: var(--text); }
+
+input, select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  background: #fff;
+  color: var(--text);
+}
+
+input:focus, select:focus, button:focus-visible {
+  outline: 3px solid rgba(122, 75, 42, 0.2);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.button {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-size: 0.98rem;
+  cursor: pointer;
+  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+  transition: transform 0.08s ease, background 0.2s ease, opacity 0.2s ease;
+}
+.button:hover { transform: translateY(-1px); }
+.button:active { transform: translateY(0); }
+
+.button.primary { background: var(--accent); color: #fff; }
+.button.primary:hover { background: var(--accent-dark); }
+.button.secondary { background: var(--surface-alt); color: var(--text); border: 1px solid var(--border); }
+.button.ghost { background: transparent; color: var(--accent); border: 1px dashed #cdb894; }
+.button.small { padding: 8px 14px; font-size: 0.9rem; }
+
+.prayer-card { background: linear-gradient(180deg, #fffdf9 0%, #fffaf2 100%); }
+
+.prayer-text {
+  margin: 0;
+  padding: 18px 20px;
+  border-left: 4px solid #d9c3a3;
+  background: rgba(248, 241, 227, 0.55);
+  border-radius: 0 14px 14px 0;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  white-space: pre-line;
+  min-height: 7.5em;
+}
+
+.prayer-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #efe4d1;
+  color: var(--accent-dark);
+  font-size: 0.85rem;
+  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+}
+
+.footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-top: 8px;
+}
+
+.external-result {
+  margin-top: 14px;
+  display: grid;
+  gap: 14px;
+}
+.external-block .label {
+  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+  margin-bottom: 6px;
+}
+.small-text {
+  font-size: 1.05rem;
+  min-height: 0;
+  line-height: 1.7;
+}
+.status-error { color: #8b3a2b; }
+.status-ok { color: #2f6b3f; }
+
+.external-actions { margin-top: 4px; }
+.external-actions .button { text-decoration: none; display: inline-block; text-align: center; }
+
+.announcements-content {
+  background: rgba(248, 241, 227, 0.55);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  max-height: 420px;
+  overflow: auto;
+  font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+.announcements-content p { margin: 0 0 10px; }
+.announcements-content ul, .announcements-content ol { margin: 0 0 10px 20px; padding: 0; }
+.announcements-content h1, .announcements-content h2, .announcements-content h3, .announcements-content h4 {
+  margin: 14px 0 8px;
+  font-size: 1.05rem;
+  font-family: inherit;
+}
+.announcements-content a { color: var(--accent-dark); }
+
+@media (max-width: 640px) {
+  .app { padding: 20px 14px 36px; }
+  .card { padding: 18px; }
+  .actions { flex-direction: column; }
+  .button { width: 100%; }
+  .prayer-text { font-size: 1.1rem; }
+}

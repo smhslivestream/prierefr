@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prières du jour</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <p class="eyebrow">Application catholique</p>
+      <h1>Prières du jour</h1>
+      <p class="subtitle">Prières et annonces de MySMHS, ou prière personnalisée selon la liturgie et vos thèmes.</p>
+    </header>
+
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button id="tab-mysmhs" class="tab-button active" type="button" role="tab" aria-selected="true" aria-controls="panel-mysmhs" data-tab="mysmhs">MySMHS</button>
+      <button id="tab-prieres" class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="panel-prieres" data-tab="prieres">Prières principales</button>
+      <button id="tab-personnalisee" class="tab-button" type="button" role="tab" aria-selected="false" aria-controls="panel-personnalisee" data-tab="personnalisee">Prière personnalisée</button>
+    </nav>
+
+    <section id="panel-mysmhs" class="tab-panel active" role="tabpanel" aria-labelledby="tab-mysmhs">
+      <section class="card" aria-labelledby="external-title">
+        <div class="card-header">
+          <h2 id="external-title">Prière et annonces depuis mysmhs.ca</h2>
+          <p class="muted">Lire la prière du matin la plus récente (traduite en français) et afficher les annonces récentes dans l’application</p>
+        </div>
+        <div class="actions">
+          <button id="fetch-external" class="button primary" type="button">Charger la prière la plus récente</button>
+          <button id="fetch-announcements" class="button secondary" type="button">Afficher les annonces les plus récentes</button>
+          <button id="fetch-all" class="button ghost" type="button">Tout ouvrir</button>
+        </div>
+        <p id="external-status" class="hint" aria-live="polite"></p>
+        <div id="external-result" class="external-result" style="display:none;">
+          <div class="external-block">
+            <span class="label">Prière originale (site)</span>
+            <blockquote id="external-original" class="prayer-text small-text"></blockquote>
+          </div>
+          <div class="external-block">
+            <span class="label">Traduction en français</span>
+            <blockquote id="external-translation" class="prayer-text small-text"></blockquote>
+          </div>
+          <div class="actions external-actions">
+            <a href="http://www.mysmhs.ca/" target="_blank" rel="noopener noreferrer" class="button secondary">Ouvrir le site mysmhs.ca</a>
+          </div>
+        </div>
+
+        <div id="announcements-result" class="external-result" style="display:none;">
+          <div class="external-block">
+            <span class="label" id="announcements-title">Annonces les plus récentes</span>
+            <p id="announcements-meta" class="muted"></p>
+            <div id="announcements-content" class="announcements-content"></div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section id="panel-prieres" class="tab-panel" role="tabpanel" aria-labelledby="tab-prieres" hidden>
+      <section class="card" aria-labelledby="common-prayers-title">
+        <div class="card-header">
+          <h2 id="common-prayers-title">Principales prières catholiques</h2>
+          <p class="muted">Choisissez une prière dans la liste pour l’afficher.</p>
+        </div>
+        <label class="field">
+          <span>Prière</span>
+          <select id="common-prayer-select"></select>
+        </label>
+        <div class="external-block" style="margin-top:14px;">
+          <span class="label" id="common-prayer-name"></span>
+          <blockquote id="common-prayer-text" class="prayer-text"></blockquote>
+        </div>
+      </section>
+    </section>
+
+    <section id="panel-personnalisee" class="tab-panel" role="tabpanel" aria-labelledby="tab-personnalisee" hidden>
+      <section class="card today-card" aria-labelledby="today-title">
+        <div class="card-header">
+          <h2 id="today-title">Thème liturgique du jour</h2>
+          <p id="today-date" class="muted"></p>
+        </div>
+        <div class="theme-grid">
+          <div class="theme-item">
+            <span class="label">Temps liturgique</span>
+            <strong id="liturgical-season">—</strong>
+          </div>
+          <div class="theme-item">
+            <span class="label">Fête / mémoire</span>
+            <strong id="liturgical-celebration">—</strong>
+          </div>
+          <div class="theme-item">
+            <span class="label">Saint du jour</span>
+            <strong id="saint-of-day">—</strong>
+          </div>
+        </div>
+        <button id="use-today-theme" class="button secondary" type="button">Utiliser le thème du jour</button>
+      </section>
+
+      <section class="card" aria-labelledby="theme-title">
+        <h2 id="theme-title">Choisir un thème</h2>
+        <div class="controls">
+          <label class="field">
+            <span>Type de prière</span>
+            <select id="prayer-type">
+              <option value="adoration">Adoration</option>
+              <option value="intercession">Intercession</option>
+              <option value="petition">Pétition</option>
+              <option value="gratitude">Gratitude</option>
+              <option value="glorification">Glorification de Dieu</option>
+            </select>
+          </label>
+          <label class="field checkbox-field">
+            <input id="use-liturgical-theme" type="checkbox" checked>
+            <span>Utiliser le thème liturgique du jour (si aucun thème personnalisé/proposé n’est choisi)</span>
+          </label>
+          <label class="field">
+            <span>Thème personnalisé</span>
+            <input id="custom-theme" type="text" placeholder="Ex. paix, famille, espérance, gratitude..." maxlength="80">
+          </label>
+          <label class="field">
+            <span>Ou choisir un thème proposé</span>
+            <select id="preset-theme">
+              <option value="">— Sélectionner —</option>
+              <option value="Confiance en Dieu">Confiance en Dieu</option>
+              <option value="Paix intérieure">Paix intérieure</option>
+              <option value="Gratitude">Gratitude</option>
+              <option value="Famille">Famille</option>
+              <option value="Guérison">Guérison</option>
+              <option value="Espérance">Espérance</option>
+              <option value="Pardon">Pardon</option>
+              <option value="Travail et service">Travail et service</option>
+              <option value="Protection">Protection</option>
+              <option value="Sagesse">Sagesse</option>
+            </select>
+          </label>
+        </div>
+        <div class="actions">
+          <button id="generate-prayer" class="button primary" type="button">Générer une prière</button>
+          <button id="new-variation" class="button ghost" type="button">Nouvelle variation</button>
+        </div>
+        <p class="hint">Choisissez un type de prière. Vous pouvez utiliser le thème liturgique du jour ou le désactiver pour une prière plus générale, et/ou indiquer un thème personnalisé ou proposé.</p>
+      </section>
+
+      <section class="card prayer-card" aria-labelledby="prayer-title">
+        <div class="card-header">
+          <h2 id="prayer-title">Prière</h2>
+          <p id="prayer-theme-label" class="muted"></p>
+        </div>
+        <blockquote id="prayer-text" class="prayer-text" aria-live="polite"></blockquote>
+        <div class="prayer-footer">
+          <span id="line-count" class="badge"></span>
+          <div class="actions">
+            <button id="reset-prayer-config" class="button ghost small" type="button">Réinitialiser</button>
+            <button id="copy-prayer" class="button secondary small" type="button">Copier</button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <footer class="footer">
+      <p>Prières courtes (4 à 8 lignes), pour accompagner votre journée.</p>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
