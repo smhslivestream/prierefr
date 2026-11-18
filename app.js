@@ -406,9 +406,10 @@
 
   async function fetchWithFallback(url) {
     const attempts = [
-      url,
+      "https://r.jina.ai/http://www.mysmhs.ca/",
       "https://api.allorigins.win/raw?url=" + encodeURIComponent(url),
-      "https://corsproxy.io/?url=" + encodeURIComponent(url)
+      "https://corsproxy.io/?url=" + encodeURIComponent(url),
+      url
     ];
     let lastErr;
     for (const u of attempts) {
